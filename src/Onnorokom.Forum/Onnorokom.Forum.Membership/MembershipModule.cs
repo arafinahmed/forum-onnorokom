@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace DataImporter.Membership
+namespace Onnorokom.Forum.Membership
 {
     public class MembershipModule : Module
     {

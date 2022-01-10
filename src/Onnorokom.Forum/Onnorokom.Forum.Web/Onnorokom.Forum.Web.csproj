@@ -22,9 +22,4 @@
     <ProjectReference Include="..\Onnorokom.Forum.Membership\Onnorokom.Forum.Membership.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\" />
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>
