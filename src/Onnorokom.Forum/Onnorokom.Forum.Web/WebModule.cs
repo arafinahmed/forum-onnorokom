@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Onnorokom.Forum.Web.Models.Account;
 
 namespace Onnorokom.Forum.Web
 {
@@ -6,6 +7,8 @@ namespace Onnorokom.Forum.Web
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<RegisterModel>().AsSelf();
+
             base.Load(builder);
         }
     }

@@ -10,6 +10,9 @@ using Onnorokom.Forum.Membership.Contexts;
 using Onnorokom.Forum.Membership.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using DevSkill.Http.Emails.BusinessObjects;
+using System.Configuration;
+using DevSkill.Http.Emails;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -17,9 +20,11 @@ var migrationAssemblyName = typeof(Program).Assembly.FullName;
 
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => {
     containerBuilder.RegisterModule(new WebModule());
-    containerBuilder.RegisterModule(new MembershipModule(connectionString,
+    containerBuilder.RegisterModule(new MembershipModule(connectionString, migrationAssemblyName));
+    containerBuilder.RegisterModule(new EmailMessagingModule(connectionString,
                 migrationAssemblyName));
 });
 
@@ -88,6 +93,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<SmtpConfiguration>(builder.Configuration.GetSection("Smtp"));
 
 try
 {

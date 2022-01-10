@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Onnorokom.Forum.Membership.Contexts;
+using Onnorokom.Forum.Membership.Services;
 
 namespace Onnorokom.Forum.Membership
 {
@@ -13,6 +15,19 @@ namespace Onnorokom.Forum.Membership
         }
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ApplicationDbContext>().AsSelf()
+                .WithParameter("connectionString", _connectionString)
+                .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApplicationDbContext>().As<IApplicationDbContext>()
+                .WithParameter("connectionString", _connectionString)
+                .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UrlService>().As<IUrlService>().InstancePerLifetimeScope();
+            builder.RegisterType<MailSenderService>().As<IMailSenderService>().InstancePerLifetimeScope();
+
             base.Load(builder);
         }
     }
