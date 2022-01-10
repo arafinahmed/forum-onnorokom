@@ -1,4 +1,3 @@
-using Onnorokom.Forum.Web.Data;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Onnorokom.Forum.Web;
+using Onnorokom.Forum.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,9 +50,7 @@ try
 
     app.UseHttpsRedirection();
     app.UseStaticFiles();
-
     app.UseRouting();
-
     app.UseAuthentication();
     app.UseAuthorization();
 
@@ -76,5 +74,3 @@ finally
 {
     Log.CloseAndFlush();
 }
-
-
