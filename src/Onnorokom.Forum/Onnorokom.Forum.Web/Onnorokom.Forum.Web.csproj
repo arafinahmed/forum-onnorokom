@@ -18,4 +18,12 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Onnorokom.Forum.Membership\Onnorokom.Forum.Membership.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
