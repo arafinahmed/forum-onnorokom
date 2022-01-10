@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Onnorokom.Forum.Web;
-using Onnorokom.Forum.Web.Data;
+using Onnorokom.Forum.Membership.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
