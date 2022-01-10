@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Onnorokom.Forum.Membership.Entities;
+using Onnorokom.Forum.Membership.Seeds;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Onnorokom.Forum.Membership.Contexts
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, 
-        Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, Guid,
+        UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, IApplicationDbContext
     {
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
-            base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
-            
         }
 
         public ApplicationDbContext(string connectionString, string migrationAssemblyName)
@@ -36,9 +36,13 @@ namespace Onnorokom.Forum.Membership.Contexts
 
             base.OnConfiguring(dbContextOptionsBuilder);
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            builder.Entity<Role>()
+                .HasData(DataSeed.Roles);
+
+            base.OnModelCreating(builder);
         }
     }
 }

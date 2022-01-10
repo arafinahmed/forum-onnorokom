@@ -45,7 +45,6 @@ namespace Onnorokom.Forum.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            model.Resolve(_scope);
             model.ReturnUrl ??= Url.Content("~/");
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -157,14 +156,7 @@ namespace Onnorokom.Forum.Web.Controllers
                         }
                         else
                         {
-                            if (claims.Any(x => x.Type == "SuperAdmin"))
-                            {
-                                return RedirectToAction("Index", "Dashboard", new { Area = "Admin" });
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Dashboard", new { Area = "Panel" });
-                            }
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                 }

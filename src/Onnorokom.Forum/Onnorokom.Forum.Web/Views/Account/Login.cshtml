@@ -9,9 +9,9 @@
         <h1 class="auth-title">Log in.</h1>
         <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
 
-        <form asp-action="Login" asp-controller="Account" method="post" asp-antiforgery="true">
+        <form asp-action="Login" asp-antiforgery="true" asp-controller="Account" method="post" class="needs-validation" novalidate>
             <div asp-validation-summary="All" class="text-danger"></div>
-            @*<input type="hidden" asp-for="ReturnUrl" />*@
+            <input type="hidden" asp-for="ReturnUrl" />
             <div class="form-group position-relative has-icon-left mb-4">
                 <input asp-for="Email" type="email" class="form-control form-control-xl" placeholder="Email" required>
                 <div class="form-control-icon">
@@ -47,4 +47,21 @@
 </div>
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
 }

@@ -8,6 +8,7 @@ namespace Onnorokom.Forum.Web
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<RegisterModel>().AsSelf();
+            builder.RegisterType<ConfirmEmailModel>().AsSelf();            
 
             base.Load(builder);
         }

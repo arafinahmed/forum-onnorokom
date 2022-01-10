@@ -15,7 +15,7 @@ using System.Configuration;
 using DevSkill.Http.Emails;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("ForumDbConnection");
 var migrationAssemblyName = typeof(Program).Assembly.FullName;
 
 

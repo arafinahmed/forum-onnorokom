@@ -21,20 +21,11 @@ namespace Onnorokom.Forum.Web.Models.Account
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
         public string? ReturnUrl { get; set; }
         public IList<AuthenticationScheme>? ExternalLogins { get; set; }
 
-        private ILifetimeScope _scope;
-
         public RegisterModel()
         {
-        }
-
-        public void Resolve(ILifetimeScope scope)
-        {
-            _scope = scope;
         }
     }
 }
