@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onnorokom.Forum.Web", "Onno
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onnorokom.Forum.Membership", "Onnorokom.Forum.Membership\Onnorokom.Forum.Membership.csproj", "{1E0D91B3-37C5-4157-902A-F4199B850402}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onnorokom.Forum.DataAccessLayer", "Onnorokom.Forum.DataAccessLayer\Onnorokom.Forum.DataAccessLayer.csproj", "{F38BDDBA-8CB6-4F38-BF33-705066E2CA92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Onnorokom.Forum.DataAccessLayer", "Onnorokom.Forum.DataAccessLayer\Onnorokom.Forum.DataAccessLayer.csproj", "{F38BDDBA-8CB6-4F38-BF33-705066E2CA92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

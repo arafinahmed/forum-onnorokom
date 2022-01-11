@@ -15,13 +15,21 @@ using System.Configuration;
 using DevSkill.Http.Emails;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+//    .AddJsonFile("appsettings.json", false, true)
+//    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+//    .AddEnvironmentVariables()
+//    .Build();
+
 var connectionString = builder.Configuration.GetConnectionString("ForumDbConnection");
 var migrationAssemblyName = typeof(Program).Assembly.FullName;
 
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => {
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
     containerBuilder.RegisterModule(new WebModule());
     containerBuilder.RegisterModule(new MembershipModule(connectionString, migrationAssemblyName));
     containerBuilder.RegisterModule(new EmailMessagingModule(connectionString,
@@ -37,6 +45,9 @@ builder.Host.UseSerilog((ctx, lc) => lc
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString,
+                b => b.MigrationsAssembly(migrationAssemblyName)));
+builder.Services.AddDbContext<MembershipDbContext>(options =>
                 options.UseSqlServer(connectionString,
                 b => b.MigrationsAssembly(migrationAssemblyName)));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

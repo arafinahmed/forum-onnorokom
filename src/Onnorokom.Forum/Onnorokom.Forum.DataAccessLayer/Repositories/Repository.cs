@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Linq.Dynamic.Core;
 using Onnorokom.Forum.DataAccessLayer.Entities;
 
 namespace Onnorokom.Forum.DataAccessLayer.Repositories
@@ -147,75 +146,75 @@ namespace Onnorokom.Forum.DataAccessLayer.Repositories
             return count;
         }
 
-        public (IList<TEntity> data, int total, int totalDisplay) GetDynamic(
-            Expression<Func<TEntity, bool>> expression = null,
-            string orderBy = null, string includeProperties = "",
-            int pageIndex = 1, int pageSize = 10, bool isTrackingOff = false)
-        {
-            IQueryable<TEntity> query = _dbSet;
-            var total = query.Count();
-            var totalDisplay = query.Count();
-            if (expression != null)
-            {
-                query = query.Where(expression);
-                totalDisplay = query.Count();
-            }
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-            if (orderBy != null)
-            {
-                var result = query.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize);
-                if (isTrackingOff)
-                    return (result.AsNoTracking().ToList(), total, totalDisplay);
-                else
-                    return (result.ToList(), total, totalDisplay);
-            }
-            else
-            {
-                var result = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
-                if (isTrackingOff)
-                    return (result.AsNoTracking().ToList(), total, totalDisplay);
-                else
-                    return (result.ToList(), total, totalDisplay);
-            }
-        }
+        //public (IList<TEntity> data, int total, int totalDisplay) GetDynamic(
+        //    Expression<Func<TEntity, bool>> expression = null,
+        //    string orderBy = null, string includeProperties = "",
+        //    int pageIndex = 1, int pageSize = 10, bool isTrackingOff = false)
+        //{
+        //    IQueryable<TEntity> query = _dbSet;
+        //    var total = query.Count();
+        //    var totalDisplay = query.Count();
+        //    if (expression != null)
+        //    {
+        //        query = query.Where(expression);
+        //        totalDisplay = query.Count();
+        //    }
+        //    foreach (var includeProperty in includeProperties.Split
+        //        (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        //    {
+        //        query = query.Include(includeProperty);
+        //    }
+        //    if (orderBy != null)
+        //    {
+        //        var result = query.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        //        if (isTrackingOff)
+        //            return (result.AsNoTracking().ToList(), total, totalDisplay);
+        //        else
+        //            return (result.ToList(), total, totalDisplay);
+        //    }
+        //    else
+        //    {
+        //        var result = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        //        if (isTrackingOff)
+        //            return (result.AsNoTracking().ToList(), total, totalDisplay);
+        //        else
+        //            return (result.ToList(), total, totalDisplay);
+        //    }
+        //}
 
-        public IList<TEntity> GetDynamic(
-            Expression<Func<TEntity, bool>> expression = null,
-            string orderBy = null, string includeProperties = "",
-            bool isTrackingOff = false)
-        {
-            IQueryable<TEntity> query = _dbSet;
-            if (expression != null)
-            {
-                query = query.Where(expression);
-            }
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-            if (orderBy != null)
-            {
-                var result = query.OrderBy(orderBy);
+        //public IList<TEntity> GetDynamic(
+        //    Expression<Func<TEntity, bool>> expression = null,
+        //    string orderBy = null, string includeProperties = "",
+        //    bool isTrackingOff = false)
+        //{
+        //    IQueryable<TEntity> query = _dbSet;
+        //    if (expression != null)
+        //    {
+        //        query = query.Where(expression);
+        //    }
+        //    foreach (var includeProperty in includeProperties.Split
+        //        (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        //    {
+        //        query = query.Include(includeProperty);
+        //    }
+        //    if (orderBy != null)
+        //    {
+        //        var result = query.OrderBy(orderBy);
 
-                if (isTrackingOff)
-                    return result.AsNoTracking().ToList();
-                else
-                    return result.ToList();
-            }
-            else
-            {
-                if (isTrackingOff)
-                    return query.AsNoTracking().ToList();
-                else
-                    return query.ToList();
-            }
+        //        if (isTrackingOff)
+        //            return result.AsNoTracking().ToList();
+        //        else
+        //            return result.ToList();
+        //    }
+        //    else
+        //    {
+        //        if (isTrackingOff)
+        //            return query.AsNoTracking().ToList();
+        //        else
+        //            return query.ToList();
+        //    }
 
-        }
+        //}
 
         public void Remove(TEntity entityToDelete)
         {
