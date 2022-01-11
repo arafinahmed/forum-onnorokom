@@ -47,6 +47,7 @@ builder.Host.UseSerilog((ctx, lc) => lc
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString,
                 b => b.MigrationsAssembly(migrationAssemblyName)));
+
 builder.Services.AddDbContext<MembershipDbContext>(options =>
                 options.UseSqlServer(connectionString,
                 b => b.MigrationsAssembly(migrationAssemblyName)));
