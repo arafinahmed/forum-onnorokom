@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using DevSkill.Http.Emails.BusinessObjects;
 using System.Configuration;
 using DevSkill.Http.Emails;
+using Onnorokom.Forum.Membership.BusinessObject;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -102,6 +104,16 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Moderator", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.Requirements.Add(new ModeratorRequirement());
+    });
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, ModeratorRequirementHandler>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();

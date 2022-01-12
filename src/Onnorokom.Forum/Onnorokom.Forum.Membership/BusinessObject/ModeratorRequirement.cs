@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Onnorokom.Forum.Membership.BusinessObject
 {
-    public class ViewRequirement : IAuthorizationRequirement
+    public class ModeratorRequirement : IAuthorizationRequirement
     {
-        public ViewRequirement() { }
+        public ModeratorRequirement() { }
     }
 }
