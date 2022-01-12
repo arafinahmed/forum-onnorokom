@@ -41,7 +41,7 @@ namespace Onnorokom.Forum.Web.Controllers
                 {
                     model.Resolve(_scope);
                     await model.CreateBoard(_userManager.GetUserName(User));
-                    return View(model);
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
@@ -76,7 +76,35 @@ namespace Onnorokom.Forum.Web.Controllers
                 {
                     model.Resolve(_scope);
                     await model.EditBoard(_userManager.GetUserName(User));
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    _logger.LogError(ex, "Board Creation Failed");
                     return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteBoard(Guid id)
+        {
+            var model = _scope.Resolve<DeleteBoardModel>();
+            model.LoadBoard(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteBoard(DeleteBoardModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.Resolve(_scope);
+                    await model.DeleteBoard(_userManager.GetUserName(User));
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {

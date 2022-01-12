@@ -96,5 +96,31 @@ namespace Onnorokom.Forum.Membership.Services
             boardEntity.BoardName = board.BoardName;
             _unitOfWork.Save();
         }
+
+        public async Task DeleteBoard(Board board, Guid modId)
+        {
+            var user = await _profileService.GetUserByIdAsync(modId);
+
+            if (user == null)
+                throw new FileNotFoundException("User not found with the modId");
+
+            var claims = await _profileService.GetClaimAsync(user);
+            if (claims == null)
+                throw new NullReferenceException("Claim is required for creating a board");
+
+            var claim = claims.FirstOrDefault();
+
+            if (claim.Type != "Moderator")
+            {
+                throw new InvalidOperationException("You are not permited to create a Board");
+            }
+
+            var boardEntity = _unitOfWork.Boards.GetById(board.Id);
+            if (boardEntity == null)
+                throw new FileNotFoundException("The board is not valid");
+
+            _unitOfWork.Boards.Remove(boardEntity);
+            _unitOfWork.Save();
+        }
     }
 }

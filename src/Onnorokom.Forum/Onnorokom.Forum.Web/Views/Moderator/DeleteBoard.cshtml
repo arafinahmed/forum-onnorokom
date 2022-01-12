@@ -1,0 +1,41 @@
+﻿@model Onnorokom.Forum.Web.Models.Moderator.DeleteBoardModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<partial name="Partial/_SidebarPartial"/>
+
+<div id="main">
+    <h3>Delete Board</h3>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-md-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-vertical method="post"
+                            asp-controller="Moderator" asp-action="DeleteBoard" asp-antiforgery="true">
+                                <input asp-for="Id" type="hidden"/>
+                                <input asp-for="BoardName" type="hidden" />
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            Are you sure to delete <b>@Model.BoardName</b>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="submit"
+                                                class="btn btn-danger me-1 mb-1">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>            
+</div>
