@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Onnorokom.Forum.Web.Models.Account;
+using Onnorokom.Forum.Web.Models.Home;
 using Onnorokom.Forum.Web.Models.Moderator;
+using Onnorokom.Forum.Web.Models.Topic;
 
 namespace Onnorokom.Forum.Web
 {
@@ -14,6 +16,8 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<BoardListModel>().AsSelf();
             builder.RegisterType<EditBoardModel>().AsSelf();
             builder.RegisterType<DeleteBoardModel>().AsSelf();
+            builder.RegisterType<LoadAllTopicsModel>().AsSelf();
+            builder.RegisterType<CreateTopicModel>().AsSelf();
 
             base.Load(builder);
         }

@@ -1,0 +1,84 @@
+﻿@model Onnorokom.Forum.Web.Models.Topic.CreateTopicModel
+@{
+    ViewData["Title"] = "Create Topic";
+}
+
+<div class="container">
+    <h3>Create Topic of @Model.BoardName</h3>
+    <hr />
+    <div id="main">
+        <div class="page-content">
+            <section class="row">
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form class="form form-vertical needs-validation" novalidate  method="post"
+                                asp-controller="Topic" asp-action="CreateTopic" asp-antiforgery="true">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input asp-for="BoardId" type="hidden"/>
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="first-name-icon">Topic Name under @Model.BoardName</label>
+                                                        <div class="invalid-feedback">Please provide a Name.</div>
+                                                    <div class="position-relative">
+                                                        <input asp-for="TopicName" type="text" class="form-control"
+                                                            placeholder="Topic Name"
+                                                            id="first-name-icon" required/>
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-aspect-ratio"></i>
+                                                        </div>
+                                                        <div class="invalid-tooltip">
+                                                            Please provide a topic Name
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span class="text-danger" asp-validation-for="BoardName"></span>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit"
+                                                    class="btn btn-primary me-1 mb-1">
+                                                    Create
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>            
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+        (function () {
+            'use strict'
+
+            var forms = document.querySelectorAll('.needs-validation')
+
+            Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}
+

@@ -111,9 +111,23 @@ builder.Services.AddAuthorization(options =>
         policy.RequireAuthenticatedUser();
         policy.Requirements.Add(new ModeratorRequirement());
     });
+
+    options.AddPolicy("User", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.Requirements.Add(new UserRequirement());
+    });
+
+    options.AddPolicy("CommonPermission", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.Requirements.Add(new CommonPermissionRequirement());
+    });
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, ModeratorRequirementHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, UserRequirementHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, CommonPermissionRequirementHandler>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();

@@ -12,7 +12,7 @@ namespace Onnorokom.Forum.Membership.Repositories
 {
     public class TopicRepository : Repository<Topic, Guid>, ITopicRepository
     {
-        public TopicRepository(MembershipDbContext context)
+        public TopicRepository(IMembershipDbContext context)
             : base((DbContext)context)
         {
         }

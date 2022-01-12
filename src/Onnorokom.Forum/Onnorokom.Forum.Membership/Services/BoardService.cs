@@ -61,7 +61,7 @@ namespace Onnorokom.Forum.Membership.Services
         {
             var boardEntity = _unitOfWork.Boards.GetById(id);
             if (boardEntity == null)
-                throw new FileNotFoundException("Board not found");
+                return null;
             
             return new Board { Id = boardEntity.Id, BoardName = boardEntity.BoardName };
         }

@@ -12,14 +12,14 @@ namespace Onnorokom.Forum.Web.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<AccountController> _logger;
+        private readonly ILogger<ModeratorController> _logger;
         private readonly ILifetimeScope _scope;
 
         public ModeratorController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILifetimeScope scope,
-            ILogger<AccountController> logger)
+            ILogger<ModeratorController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;

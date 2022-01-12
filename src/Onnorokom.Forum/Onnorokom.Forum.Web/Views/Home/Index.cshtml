@@ -1,8 +1,19 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Onnorokom.Forum.Web.Models.Moderator.BoardListModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+
+    <div class="row">
+        @{
+            foreach(var board in Model.Boards)
+            {
+                <div class="card col-md-3 m-2">
+                    <a href="/Home/Topics/@board.Id">
+                        <div class="card-body">
+                            <h5 class="card-title">@board.BoardName</h5>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
 </div>

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Autofac;
+using Microsoft.AspNetCore.Mvc;
 using Onnorokom.Forum.Web.Models;
+using Onnorokom.Forum.Web.Models.Home;
+using Onnorokom.Forum.Web.Models.Moderator;
 using System.Diagnostics;
 
 namespace Onnorokom.Forum.Web.Controllers
@@ -7,15 +10,26 @@ namespace Onnorokom.Forum.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ILifetimeScope _scope;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ILifetimeScope scope)
         {
             _logger = logger;
+            _scope = scope;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = _scope.Resolve<BoardListModel>();
+            model.LoadAllBoards();
+            return View(model);
+        }
+
+        public IActionResult Topics(Guid id)
+        {
+            var model = _scope.Resolve<LoadAllTopicsModel>();
+            model.LoadTopics(id);
+            return View(model);
         }
 
         public IActionResult Privacy()

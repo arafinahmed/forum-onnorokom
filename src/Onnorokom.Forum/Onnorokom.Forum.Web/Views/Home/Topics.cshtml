@@ -1,0 +1,13 @@
+﻿@model Onnorokom.Forum.Web.Models.Home.LoadAllTopicsModel
+
+<div class="container">
+    <h2>@Model.BoardName</h2>
+    <hr />
+    <div class="card col-md-3 m-2">
+        <a href="/Topic/CreateTopic/@Model.Id">
+            <div class="card-body">
+                <h5 class="card-title">+ Add New Topic</h5>
+            </div>
+        </a>
+    </div>
+</div>
