@@ -11,5 +11,6 @@ namespace Onnorokom.Forum.Membership.UnitOfWorks
     public interface IMembershipUnitOfWork : IUnitOfWork
     {
         IBoardRepository Boards { get; }
+        ITopicRepository Topics { get; }
     }
 }

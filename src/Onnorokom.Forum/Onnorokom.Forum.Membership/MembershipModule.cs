@@ -43,6 +43,7 @@ namespace Onnorokom.Forum.Membership
             builder.RegisterType<MembershipUnitOfWork>().As<IMembershipUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<BoardService>().As<IBoardService>().InstancePerLifetimeScope();
             builder.RegisterType<ProfileService>().As<IProfileService>().InstancePerLifetimeScope();
+            builder.RegisterType<TopicRepository>().As<ITopicRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }
