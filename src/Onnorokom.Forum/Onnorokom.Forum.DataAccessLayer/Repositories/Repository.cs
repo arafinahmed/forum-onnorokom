@@ -17,9 +17,9 @@ namespace Onnorokom.Forum.DataAccessLayer.Repositories
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
         }
-        public virtual void Add(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
-            _dbSet.Add(entity);
+            await _dbSet.AddAsync(entity);
         }
 
         public virtual void Edit(TEntity entityToUpdate)

@@ -10,7 +10,7 @@ namespace Onnorokom.Forum.DataAccessLayer.Repositories
     public interface IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
-        void Add(TEntity entity);
+        Task AddAsync(TEntity entity);
         void Remove(TEntity entityToDelete);
         void Remove(TKey Id);
         void Remove(Expression<Func<TEntity, bool>> expression);
