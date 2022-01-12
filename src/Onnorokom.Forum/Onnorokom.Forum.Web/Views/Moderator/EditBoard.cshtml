@@ -1,9 +1,13 @@
-﻿@model Onnorokom.Forum.Web.Models.Moderator.CreateBoardModel
+﻿@model Onnorokom.Forum.Web.Models.Moderator.EditBoardModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
 
 <partial name="Partial/_SidebarPartial"/>
 
 <div id="main">
-    <h3>Create Board</h3>
+    <h3>Edit Board Name</h3>
     <div class="page-content">
         <section class="row">
             <div class="col-md-6 col-12">
@@ -11,8 +15,9 @@
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-vertical needs-validation" novalidate  method="post"
-                            asp-controller="Moderator" asp-action="CreateBoard" asp-antiforgery="true">
+                            asp-controller="Moderator" asp-action="EditBoard" asp-antiforgery="true">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="Id" type="hidden"/>
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-12">
@@ -38,7 +43,7 @@
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit"
                                                 class="btn btn-primary me-1 mb-1">
-                                                Create
+                                                Update
                                             </button>
                                         </div>
                                     </div>

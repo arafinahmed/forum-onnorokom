@@ -10,5 +10,8 @@ namespace Onnorokom.Forum.Membership.Services
     public interface IBoardService
     {
         Task CreateBoard(Board board, Guid modId);
+        IList<Board> GetAllBoards();
+        Board GetBoard(Guid id);
+        Task UpdateBoardName(Board board, Guid modId);
     }
 }

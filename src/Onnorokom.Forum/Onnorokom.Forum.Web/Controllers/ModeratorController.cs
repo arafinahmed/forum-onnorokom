@@ -55,7 +55,37 @@ namespace Onnorokom.Forum.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = _scope.Resolve<BoardListModel>();
+            model.LoadAllBoards();
+            return View(model);
+        }
+
+        public IActionResult EditBoard(Guid id)
+        {
+            var model = _scope.Resolve<EditBoardModel>();
+            model.LoadBoard(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditBoard(EditBoardModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.Resolve(_scope);
+                    await model.EditBoard(_userManager.GetUserName(User));
+                    return View(model);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    _logger.LogError(ex, "Board Creation Failed");
+                    return View(model);
+                }
+            }
+            return View(model);
         }
     }
 }

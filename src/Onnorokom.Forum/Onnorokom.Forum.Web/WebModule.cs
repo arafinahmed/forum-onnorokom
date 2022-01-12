@@ -11,6 +11,8 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<RegisterModel>().AsSelf();
             builder.RegisterType<ConfirmEmailModel>().AsSelf();
             builder.RegisterType<CreateBoardModel>().AsSelf();
+            builder.RegisterType<BoardListModel>().AsSelf();
+            builder.RegisterType<EditBoardModel>().AsSelf();
 
             base.Load(builder);
         }
