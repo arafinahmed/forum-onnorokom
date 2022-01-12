@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Onnorokom.Forum.Membership.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<header>
+    <ul class="nav justify-content-center" style="background-color: #e3f2fd;">
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" title="">Home</a>
+    </li>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Moderator" asp-action="CreateBoard" title="">Moderator</a>
+        </li>
+         <li class="nav-item">
+            <form class="nav-menu form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="button" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item"><a class="nav-link text-dark" asp-action="Login" asp-controller="Account" title="">Login</a></li>
+        <li class="nav-item">
+            <a asp-action="Register" asp-controller="Account" class="nav-link text-dark" title="">Sign Up</a>
+        </li>
+    }
+    </ul>
+</header>
