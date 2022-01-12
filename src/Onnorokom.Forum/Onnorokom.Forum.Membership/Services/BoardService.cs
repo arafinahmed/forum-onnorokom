@@ -37,8 +37,13 @@ namespace Onnorokom.Forum.Membership.Services
             {
                 throw new InvalidOperationException("You are not permited to create a Board");
             }
+            var boards = _unitOfWork.Boards.Get(x => x.BoardName == board.BoardName, "");
+
+            if (boards.Count > 0)
+                throw new InvalidOperationException("Board Name Already exists.");
 
             await _unitOfWork.Boards.AddAsync(new EO.Board { BoardName = board.BoardName});
+            _unitOfWork.Save();
         }
     }
 }

@@ -41,6 +41,8 @@ namespace Onnorokom.Forum.Membership
             builder.RegisterType<MailSenderService>().As<IMailSenderService>().InstancePerLifetimeScope();
             builder.RegisterType<BoardRepository>().As<IBoardRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MembershipUnitOfWork>().As<IMembershipUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<BoardService>().As<IBoardService>().InstancePerLifetimeScope();
+            builder.RegisterType<ProfileService>().As<IProfileService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

@@ -1,1 +1,71 @@
-﻿<h1>Create Board</h1>
+﻿@model Onnorokom.Forum.Web.Models.Moderator.CreateBoardModel
+
+<h1>Create Board</h1>
+<div class="page-content">
+    <section class="row">
+        <div class="col-md-6 col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-vertical needs-validation" novalidate  method="post"
+                        asp-controller="Moderator" asp-action="CreateBoard" asp-antiforgery="true">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Board Name</label>
+                                             <div class="invalid-feedback">Please provide a Name.</div>
+                                            <div class="position-relative">
+                                                <input asp-for="BoardName" type="text" class="form-control"
+                                                    placeholder="Board Name"
+                                                    id="first-name-icon" required/>
+                                                <div class="form-control-icon">
+                                                    <i class="bi bi-aspect-ratio"></i>
+                                                </div>
+                                                <div class="invalid-tooltip">
+                                                  Please provide a board Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="text-danger" asp-validation-for="BoardName"></span>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit"
+                                            class="btn btn-primary me-1 mb-1">
+                                            Create
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script>
+        (function () {
+            'use strict'
+
+            var forms = document.querySelectorAll('.needs-validation')
+
+            Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}
