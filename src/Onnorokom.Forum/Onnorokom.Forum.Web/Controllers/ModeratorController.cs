@@ -52,5 +52,10 @@ namespace Onnorokom.Forum.Web.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }
