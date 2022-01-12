@@ -42,6 +42,15 @@ namespace Onnorokom.Forum.Membership.Contexts
             builder.Entity<Role>()
                 .HasData(DataSeed.Roles);
 
+            builder.Entity<ApplicationUser>()
+                .HasData(DataSeed.Moderator);
+
+            builder.Entity<UserRole>()
+                .HasData(DataSeed.UserRole);
+
+            builder.Entity<UserClaim>()
+                .HasData(DataSeed.UserClaims);
+
             base.OnModelCreating(builder);
         }
     }
