@@ -12,6 +12,7 @@ namespace Onnorokom.Forum.Web.Models.Home
         private ILifetimeScope _scope;
         private IBoardService _boardService;
         private ITopicService _topicService;
+
         public LoadAllTopicsModel() { }
 
         public LoadAllTopicsModel(IBoardService boardService, ITopicService topicService)

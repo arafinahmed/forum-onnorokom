@@ -43,6 +43,7 @@ namespace Onnorokom.Forum.Web.Models.Home
             }
 
             var board = _boardService.GetBoard(topic.BoardId);
+
             if (board == null)
             {
                 BoardName = "404";
@@ -53,7 +54,6 @@ namespace Onnorokom.Forum.Web.Models.Home
             BoardName = board.BoardName;
             TopicName = topic.TopicName;
             TopicId = topic.Id;
-
             Posts = _postService.GetAllPosts(TopicId);
         }
     }

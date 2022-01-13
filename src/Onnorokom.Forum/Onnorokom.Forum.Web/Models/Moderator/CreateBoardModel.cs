@@ -10,10 +10,10 @@ namespace Onnorokom.Forum.Web.Models.Moderator
         [Required]
         [StringLength(256, ErrorMessage = "Board Name cannot exceed 255 characters.")]
         public string BoardName { get; set; }
-
         private ILifetimeScope _scope;
         private IBoardService _boardService;
         private IProfileService _profileService;
+
         public CreateBoardModel() { }
 
         public CreateBoardModel(IBoardService boardService, IProfileService profileService)

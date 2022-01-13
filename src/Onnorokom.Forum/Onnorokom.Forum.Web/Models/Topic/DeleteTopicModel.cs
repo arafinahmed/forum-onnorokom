@@ -15,6 +15,7 @@ namespace Onnorokom.Forum.Web.Models.Topic
         private IBoardService _boardService;
         private ITopicService _topicService;
         private IProfileService _profileService;
+
         public DeleteTopicModel() { }
 
         public DeleteTopicModel(IBoardService boardService, ITopicService topicService,
@@ -36,11 +37,13 @@ namespace Onnorokom.Forum.Web.Models.Topic
         public void LoadTopic(Guid id)
         {
             var topic = _topicService.GetTopic(id);
+
             if (topic == null)
             {
                 BoardName = "No topic found.";
                 return;
             }
+
             var board = _boardService.GetBoard(topic.BoardId);
 
             if (board == null)
@@ -48,6 +51,7 @@ namespace Onnorokom.Forum.Web.Models.Topic
                 BoardName = "No board found.";
                 return;
             }
+
             BoardId = board.Id;
             BoardName = board.BoardName;
             Id = topic.Id;
@@ -63,6 +67,7 @@ namespace Onnorokom.Forum.Web.Models.Topic
                 throw new FileNotFoundException("User not found with the creator id.");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for deleting a topic");
 
@@ -74,6 +79,7 @@ namespace Onnorokom.Forum.Web.Models.Topic
             }
 
             var topic = _topicService.GetTopic(Id);
+
             if (topic == null)
                 throw new FileNotFoundException("No topic found with topic id");
 

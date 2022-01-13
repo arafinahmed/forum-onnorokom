@@ -17,6 +17,7 @@ namespace Onnorokom.Forum.Web.Models.Post
         private ITopicService _topicService;
         private IProfileService _profileService;
         private IBoardService _boardService;
+
         public CreatePostModel() { }
 
         public CreatePostModel(IPostService postService, ITopicService topicService,
@@ -40,6 +41,7 @@ namespace Onnorokom.Forum.Web.Models.Post
         public void Load(Guid id)
         {
             var topic = _topicService.GetTopic(id);
+
             if(topic == null)
             {
                 BoardName = "404";
@@ -48,6 +50,7 @@ namespace Onnorokom.Forum.Web.Models.Post
             }
 
             var board = _boardService.GetBoard(topic.BoardId);
+
             if(board == null)
             {
                 BoardName = "404";
@@ -68,6 +71,7 @@ namespace Onnorokom.Forum.Web.Models.Post
                 throw new FileNotFoundException("User not found with the user id");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a topic");
 
@@ -79,6 +83,7 @@ namespace Onnorokom.Forum.Web.Models.Post
             }
 
             var topic = _topicService.GetTopic(TopicId);
+
             if (topic == null)
                 throw new FileNotFoundException("No topic found.");
 
@@ -86,4 +91,3 @@ namespace Onnorokom.Forum.Web.Models.Post
         }
     }
 }
-

@@ -18,18 +18,10 @@ using Microsoft.AspNetCore.Authorization;
 using Onnorokom.Forum.Membership.Seeds;
 
 var builder = WebApplication.CreateBuilder(args);
-
-//builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-//    .AddJsonFile("appsettings.json", false, true)
-//    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
-//    .AddEnvironmentVariables()
-//    .Build();
-
 var connectionString = builder.Configuration.GetConnectionString("ForumDbConnection");
 var migrationAssemblyName = typeof(Program).Assembly.FullName;
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-
 
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
@@ -137,11 +129,11 @@ builder.Services.Configure<SmtpConfiguration>(builder.Configuration.GetSection("
 try
 {
     var app = builder.Build();
-
     app.Services.GetAutofacRoot();
     var dataSeed = new ModeratorDataSeed();
     dataSeed.Resolve(app.Services.GetAutofacRoot());
     await dataSeed.SeedUserAsync();
+    
     Log.Information("Application Starting up");
 
     // Configure the HTTP request pipeline.

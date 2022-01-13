@@ -13,6 +13,7 @@ namespace Onnorokom.Forum.Web.Models.Topic
         private IBoardService _boardService;
         private ITopicService _topicService;
         private IProfileService _profileService;
+
         public CreateTopicModel() { }
 
         public CreateTopicModel(IBoardService boardService, ITopicService topicService,
@@ -55,6 +56,7 @@ namespace Onnorokom.Forum.Web.Models.Topic
                 throw new FileNotFoundException("User not found with the email id");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a topic");
 

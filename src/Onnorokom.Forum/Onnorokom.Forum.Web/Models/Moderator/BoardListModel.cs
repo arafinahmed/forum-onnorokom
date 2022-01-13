@@ -26,6 +26,5 @@ namespace Onnorokom.Forum.Web.Models.Moderator
         {
             Boards = _boardService.GetAllBoards();
         }
-
     }
 }
