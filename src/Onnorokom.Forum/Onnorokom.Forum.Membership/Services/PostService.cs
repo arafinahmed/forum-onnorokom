@@ -145,5 +145,47 @@ namespace Onnorokom.Forum.Membership.Services
             postEntity.Description = post.Description;
             _unitOfWork.Save();
         }
+
+        public async Task DeletePost(Post post)
+        {
+            if (post == null)
+                throw new ArgumentNullException("No post provided");
+
+            var user = await _profileService.GetUserByIdAsync(post.CreatorId);
+
+            if (user == null)
+                throw new FileNotFoundException("User not found with the creator id");
+
+            var claims = await _profileService.GetClaimAsync(user);
+            if (claims == null)
+                throw new NullReferenceException("Claim is required for deleting a post");
+
+            var claim = claims.FirstOrDefault();
+
+            if (claim.Type != "Moderator" && claim.Type != "User")
+            {
+                throw new InvalidOperationException("You are not permited to delete a post");
+            }
+
+            var postEntity = _unitOfWork.Posts.GetById(post.Id);
+
+            if (postEntity == null)
+                throw new FileNotFoundException("The post is not valid");
+
+            if (postEntity.CreatorId != post.CreatorId)
+                throw new InvalidOperationException("You are not cretor of the post.");
+
+            var topic = _unitOfWork.Topics.GetById(post.TopicId);
+
+            if (topic == null)
+                throw new InvalidOperationException("No post can be deleted without proper topic id");
+
+            if (postEntity.TopicId != topic.Id)
+                throw new InvalidOperationException("Topic not matched");
+
+
+            _unitOfWork.Posts.Remove(postEntity);
+            _unitOfWork.Save();
+        }
     }
 }

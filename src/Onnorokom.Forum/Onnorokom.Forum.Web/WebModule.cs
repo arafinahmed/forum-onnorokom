@@ -24,6 +24,7 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<CreatePostModel>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<LoadAllPostsModel>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<EditPostModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<DeletePostModel>().AsSelf().InstancePerLifetimeScope();
 
             base.Load(builder);
         }
