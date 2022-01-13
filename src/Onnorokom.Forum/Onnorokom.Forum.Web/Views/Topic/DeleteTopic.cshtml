@@ -1,0 +1,43 @@
+﻿@model Onnorokom.Forum.Web.Models.Topic.DeleteTopicModel
+
+@{
+    ViewData["Title"] = "Delete Topic";
+}
+
+<div id="main">
+    <h3>Delete a Topic of @Model.BoardName</h3>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-md-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-vertical needs-validation" novalidate  method="post"
+                            asp-controller="Topic" asp-action="DeleteTopic" asp-antiforgery="true">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="BoardId" type="hidden"/>
+                                <input asp-for="BoardName" type="hidden"/>
+                                <input asp-for="TopicName" type="hidden"/>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <p>Are you sure to Delete <b>@Model.TopicName</b></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="submit"
+                                                class="btn btn-danger me-1 mb-1">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>            
+</div>

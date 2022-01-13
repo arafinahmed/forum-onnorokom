@@ -13,5 +13,6 @@ namespace Onnorokom.Forum.Membership.Services
         IList<Topic> GetAllTopics(Guid boardId);
         Topic GetTopic(Guid id);
         Task UpdateTopicName(Topic topic);
+        Task DeleteTopic(Topic topic);
     }
 }

@@ -22,6 +22,9 @@ namespace Onnorokom.Forum.Membership.Services
 
         public async Task CreateTopic(Topic topic, Guid userId)
         {
+            if (topic == null)
+                throw new ArgumentNullException("No topic provided");
+
             var user = await _profileService.GetUserByIdAsync(userId);
 
             if (user == null)
@@ -52,6 +55,9 @@ namespace Onnorokom.Forum.Membership.Services
 
         public IList<Topic> GetAllTopics(Guid boardId)
         {
+            if (boardId == Guid.Empty)
+                throw new ArgumentNullException("board id can not be empty.");
+
             var board = _unitOfWork.Boards.GetById(boardId);
             if (board == null)
                 return null;
@@ -68,6 +74,9 @@ namespace Onnorokom.Forum.Membership.Services
 
         public Topic GetTopic(Guid id)
         {
+            if (id == Guid.Empty)
+                throw new ArgumentNullException("id can not be empty.");
+
             var topicEntity = _unitOfWork.Topics.GetById(id);
             if (topicEntity == null)
                 return null;
@@ -118,6 +127,47 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new InvalidOperationException("Topic Name Already exists.");
 
             topicEntity.TopicName = topic.TopicName;
+            _unitOfWork.Save();
+        }
+
+        public async Task DeleteTopic(Topic topic)
+        {
+            if (topic == null)
+                throw new ArgumentNullException("No topic provided");
+
+            var user = await _profileService.GetUserByIdAsync(topic.CreatorId);
+
+            if (user == null)
+                throw new FileNotFoundException("User not found with the creator id");
+
+            var claims = await _profileService.GetClaimAsync(user);
+            if (claims == null)
+                throw new NullReferenceException("Claim is required for deleting a topic");
+
+            var claim = claims.FirstOrDefault();
+
+            if (claim.Type != "Moderator" && claim.Type != "User")
+            {
+                throw new InvalidOperationException("You are not permited to delete a topic");
+            }
+
+            var topicEntity = _unitOfWork.Topics.GetById(topic.Id);
+
+            if (topicEntity == null)
+                throw new FileNotFoundException("The topic is not valid");
+
+            if (topicEntity.CreatorId != topic.CreatorId)
+                throw new InvalidOperationException("You are not cretor of the topic.");
+
+            var board = _unitOfWork.Boards.GetById(topic.BoardId);
+
+            if (board == null)
+                throw new InvalidOperationException("No topic can be deleted without proper boardId");
+
+            if (topicEntity.BoardId != topic.BoardId)
+                throw new InvalidOperationException("Board not matched");
+
+            _unitOfWork.Topics.Remove(topicEntity);
             _unitOfWork.Save();
         }
     }

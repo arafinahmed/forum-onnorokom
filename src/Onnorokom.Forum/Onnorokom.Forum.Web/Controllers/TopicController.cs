@@ -47,7 +47,7 @@ namespace Onnorokom.Forum.Web.Controllers
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
-                    _logger.LogError(ex, "Board Creation Failed");
+                    _logger.LogError(ex, "Topic Creation Failed");
                     return View(model);
                 }
             }
@@ -76,7 +76,36 @@ namespace Onnorokom.Forum.Web.Controllers
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
-                    _logger.LogError(ex, "Board Creation Failed");
+                    _logger.LogError(ex, "Topic Edit Failed");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult DeleteTopic(Guid id)
+        {
+            var model = _scope.Resolve<DeleteTopicModel>();
+            model.LoadTopic(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTopic(DeleteTopicModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.Resolve(_scope);
+                    model.CreatorId = Guid.Parse(_userManager.GetUserId(User));
+                    await model.DeleteTopic();
+                    return RedirectToAction("Topics", "Home", new { id = model.BoardId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    _logger.LogError(ex, "Topic Delete Failed");
                     return View(model);
                 }
             }

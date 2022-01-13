@@ -22,6 +22,12 @@ namespace Onnorokom.Forum.Membership.Services
 
         public async Task CreateBoard(Board board, Guid modId)
         {
+            if (board == null)
+                throw new ArgumentNullException("Board can not be null");
+
+            if (modId == Guid.Empty)
+                throw new ArgumentNullException("Moderator id can not be empty.");
+
             var user = await _profileService.GetUserByIdAsync(modId);
 
             if (user == null)
@@ -59,6 +65,9 @@ namespace Onnorokom.Forum.Membership.Services
 
         public Board GetBoard(Guid id)
         {
+            if (id == Guid.Empty)
+                throw new ArgumentNullException("id can not be empty.");
+
             var boardEntity = _unitOfWork.Boards.GetById(id);
             if (boardEntity == null)
                 return null;
@@ -68,6 +77,12 @@ namespace Onnorokom.Forum.Membership.Services
 
         public async Task UpdateBoardName(Board board, Guid modId)
         {
+            if (board == null)
+                throw new ArgumentNullException("Board can not be null");
+
+            if (modId == Guid.Empty)
+                throw new ArgumentNullException("Moderator id can not be empty.");
+
             var user = await _profileService.GetUserByIdAsync(modId);
 
             if (user == null)
@@ -99,6 +114,12 @@ namespace Onnorokom.Forum.Membership.Services
 
         public async Task DeleteBoard(Board board, Guid modId)
         {
+            if (board == null)
+                throw new ArgumentNullException("Board can not be null");
+
+            if (modId == Guid.Empty)
+                throw new ArgumentNullException("Moderator id can not be empty.");
+
             var user = await _profileService.GetUserByIdAsync(modId);
 
             if (user == null)
