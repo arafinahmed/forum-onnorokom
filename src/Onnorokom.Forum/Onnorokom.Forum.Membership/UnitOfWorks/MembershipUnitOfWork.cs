@@ -14,14 +14,17 @@ namespace Onnorokom.Forum.Membership.UnitOfWorks
     {
         public IBoardRepository Boards { get; private set; }
         public ITopicRepository Topics { get; private set; }
+        public IPostRepository Posts { get; private set; }
 
         public MembershipUnitOfWork(IMembershipDbContext context,
             IBoardRepository board,
-            ITopicRepository topics
+            ITopicRepository topics,
+            IPostRepository posts
             ) : base((DbContext)context)
         {
             Boards = board;
             Topics = topics;
+            Posts = posts;
         }
     }
 }
