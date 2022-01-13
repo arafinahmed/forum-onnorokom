@@ -11,5 +11,6 @@ namespace Onnorokom.Forum.Membership.BusinessObject
         public Guid Id { get; set; }
         public string TopicName { get; set; }
         public Guid BoardId { get; set; }
+        public Guid CreatorId { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace Onnorokom.Forum.Membership.Services
             if (topics.Count > 0)
                 throw new InvalidOperationException("Topic Name Already exists.");
 
-            await _unitOfWork.Topics.AddAsync(new EO.Topic { TopicName = topic.TopicName, BoardId = topic.BoardId});
+            await _unitOfWork.Topics.AddAsync(new EO.Topic { TopicName = topic.TopicName, BoardId = topic.BoardId, CreatorId = userId});
             _unitOfWork.Save();
         }
 
@@ -61,7 +61,7 @@ namespace Onnorokom.Forum.Membership.Services
             
             foreach (var topicEntity in topicsEntity)
             {
-                topics.Add(new Topic { TopicName = topicEntity.TopicName, Id = topicEntity.Id, BoardId = topicEntity.BoardId });
+                topics.Add(new Topic { TopicName = topicEntity.TopicName, Id = topicEntity.Id, BoardId = topicEntity.BoardId, CreatorId = topicEntity.CreatorId });
             }
             return topics;
         }

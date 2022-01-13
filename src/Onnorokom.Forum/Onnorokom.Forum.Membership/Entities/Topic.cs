@@ -17,5 +17,6 @@ namespace Onnorokom.Forum.Membership.Entities
         [ForeignKey("Board")]
         public Guid BoardId { get; set; }
         public Board Board { get; set; }
+        public Guid CreatorId { get; set; }
     }
 }
