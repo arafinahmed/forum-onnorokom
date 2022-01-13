@@ -42,5 +42,12 @@ namespace Onnorokom.Forum.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Posts(Guid id)
+        {
+            var model = _scope.Resolve<LoadAllPostsModel>();
+            model.Load(id);
+            return View(model);
+        }
     }
 }

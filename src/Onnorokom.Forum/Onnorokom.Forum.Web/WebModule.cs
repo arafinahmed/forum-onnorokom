@@ -22,7 +22,8 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<EditTopicModel>().AsSelf();
             builder.RegisterType<DeleteTopicModel>().AsSelf();
             builder.RegisterType<CreatePostModel>().AsSelf();
-            
+            builder.RegisterType<LoadAllPostsModel>().AsSelf();
+
             base.Load(builder);
         }
     }

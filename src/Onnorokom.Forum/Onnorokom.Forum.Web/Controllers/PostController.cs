@@ -45,7 +45,7 @@ namespace Onnorokom.Forum.Web.Controllers
                 {
                     model.Resolve(_scope);
                     await model.CreatePost();
-                    return View(model);
+                    return RedirectToAction("Posts", "Home", new {id = model.TopicId});
                 }
                 catch (Exception ex)
                 {
