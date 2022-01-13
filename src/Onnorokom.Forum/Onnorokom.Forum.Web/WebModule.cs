@@ -18,6 +18,7 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<DeleteBoardModel>().AsSelf();
             builder.RegisterType<LoadAllTopicsModel>().AsSelf();
             builder.RegisterType<CreateTopicModel>().AsSelf();
+            builder.RegisterType<EditTopicModel>().AsSelf();
 
             base.Load(builder);
         }

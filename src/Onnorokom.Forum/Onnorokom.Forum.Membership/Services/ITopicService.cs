@@ -11,5 +11,7 @@ namespace Onnorokom.Forum.Membership.Services
     {
         Task CreateTopic(Topic topic, Guid userId);
         IList<Topic> GetAllTopics(Guid boardId);
+        Topic GetTopic(Guid id);
+        Task UpdateTopicName(Topic topic);
     }
 }

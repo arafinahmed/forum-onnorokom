@@ -53,5 +53,34 @@ namespace Onnorokom.Forum.Web.Controllers
             }
             return View(model);
         }
+
+        public IActionResult EditTopic(Guid id)
+        {
+            var model = _scope.Resolve<EditTopicModel>();
+            model.LoadTopic(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTopic(EditTopicModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.Resolve(_scope);
+                    model.CreatorId = Guid.Parse(_userManager.GetUserId(User));
+                    await model.EditTopic();
+                    return RedirectToAction("Topics", "Home", new { id = model.BoardId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    _logger.LogError(ex, "Board Creation Failed");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
     }
 }

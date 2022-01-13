@@ -65,5 +65,60 @@ namespace Onnorokom.Forum.Membership.Services
             }
             return topics;
         }
+
+        public Topic GetTopic(Guid id)
+        {
+            var topicEntity = _unitOfWork.Topics.GetById(id);
+            if (topicEntity == null)
+                return null;
+
+            return new Topic { Id = topicEntity.Id, TopicName = topicEntity.TopicName, CreatorId = topicEntity.CreatorId, BoardId = topicEntity.BoardId};
+        }
+
+        public async Task UpdateTopicName(Topic topic)
+        {
+            if (topic == null)
+                throw new ArgumentNullException("No topic provided");
+
+            var user = await _profileService.GetUserByIdAsync(topic.CreatorId);
+
+            if (user == null)
+                throw new FileNotFoundException("User not found with the creator id");
+
+            var claims = await _profileService.GetClaimAsync(user);
+            if (claims == null)
+                throw new NullReferenceException("Claim is required for updating a topic");
+
+            var claim = claims.FirstOrDefault();
+
+            if (claim.Type != "Moderator" && claim.Type != "User")
+            {
+                throw new InvalidOperationException("You are not permited to update a topic");
+            }
+
+            var topicEntity = _unitOfWork.Topics.GetById(topic.Id);
+
+            if (topicEntity == null)
+                throw new FileNotFoundException("The topic is not valid");
+
+            if (topicEntity.CreatorId != topic.CreatorId)
+                throw new InvalidOperationException("You are not cretor of the topic.");
+
+            var board = _unitOfWork.Boards.GetById(topic.BoardId);
+
+            if (board == null)
+                throw new InvalidOperationException("No topic can be edited without proper boardId");
+
+            if (topicEntity.BoardId != topic.BoardId)
+                throw new InvalidOperationException("Board not matched");
+
+            var topics = _unitOfWork.Topics.Get(x => x.TopicName == topic.TopicName && x.BoardId == topic.BoardId, "");
+
+            if (topics.Count > 0)
+                throw new InvalidOperationException("Topic Name Already exists.");
+
+            topicEntity.TopicName = topic.TopicName;
+            _unitOfWork.Save();
+        }
     }
 }

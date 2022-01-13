@@ -1,4 +1,8 @@
-﻿@model Onnorokom.Forum.Web.Models.Home.LoadAllTopicsModel
+﻿@using Microsoft.AspNetCore.Identity
+@using Onnorokom.Forum.Membership.Entities
+@model Onnorokom.Forum.Web.Models.Home.LoadAllTopicsModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = Model.BoardName;
@@ -9,12 +13,20 @@
     <hr />
     <div class="row">
         @{
+            var userId = UserManager.GetUserId(User);
             foreach(var topic in Model.Topics)
             {
                 <div class="card col-md-3 m-2">
                     <a href="#">
                         <div class="card-body">
                             <h5 class="card-title">@topic.TopicName</h5>
+                            @{
+                                if(userId == topic.CreatorId.ToString())
+                                {
+                                    <a href="/Topic/EditTopic/@topic.Id" class="card-link">Edit</a>
+                                    <a href="/Moderator/EditBoard" class="card-link">Delete</a>
+                                }
+                            }
                         </div>
                     </a>
                 </div>

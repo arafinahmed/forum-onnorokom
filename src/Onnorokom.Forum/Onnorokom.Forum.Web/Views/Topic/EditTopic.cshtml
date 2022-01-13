@@ -1,10 +1,11 @@
-﻿@model Onnorokom.Forum.Web.Models.Topic.CreateTopicModel
+﻿@model Onnorokom.Forum.Web.Models.Topic.EditTopicModel
+
 @{
-    ViewData["Title"] = "Create Topic";
+    ViewData["Title"] = "Edit Topic";
 }
 
 <div id="main">
-    <h3>Create Topic of @Model.BoardName</h3>
+    <h3>Edit Topic of @Model.BoardName</h3>
     <div class="page-content">
         <section class="row">
             <div class="col-md-6 col-12">
@@ -12,7 +13,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-vertical needs-validation" novalidate  method="post"
-                            asp-controller="Topic" asp-action="CreateTopic" asp-antiforgery="true">
+                            asp-controller="Topic" asp-action="EditTopic" asp-antiforgery="true">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input asp-for="BoardId" type="hidden"/>
                                 <input asp-for="BoardName" type="hidden"/>
@@ -41,7 +42,7 @@
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit"
                                                 class="btn btn-primary me-1 mb-1">
-                                                Create
+                                                Edit
                                             </button>
                                         </div>
                                     </div>
@@ -54,7 +55,6 @@
         </section>
     </div>            
 </div>
-
 
 
 
@@ -79,4 +79,3 @@
         })()
     </script>
 }
-
