@@ -84,5 +84,66 @@ namespace Onnorokom.Forum.Membership.Services
             }
             return posts;
         }
+
+        public Post GetPost(Guid id)
+        {
+            if (id == Guid.Empty)
+                throw new ArgumentNullException("id can not be empty.");
+
+            var postEntity = _unitOfWork.Posts.GetById(id);
+            if (postEntity == null)
+                return null;
+
+            return new Post
+            {
+                Description = postEntity.Description,
+                CreatorEmail = postEntity.CreatorEmail,
+                CreatorId = postEntity.CreatorId,
+                Id = postEntity.Id,
+                TopicId = postEntity.TopicId
+            };
+        }
+
+        public async Task UpdatePostDescription(Post post)
+        {
+            if (post == null)
+                throw new ArgumentNullException("No post provided");
+
+            var user = await _profileService.GetUserByIdAsync(post.CreatorId);
+
+            if (user == null)
+                throw new FileNotFoundException("User not found with the creator id");
+
+            var claims = await _profileService.GetClaimAsync(user);
+            if (claims == null)
+                throw new NullReferenceException("Claim is required for updating a post");
+
+            var claim = claims.FirstOrDefault();
+
+            if (claim.Type != "Moderator" && claim.Type != "User")
+            {
+                throw new InvalidOperationException("You are not permited to update a post");
+            }
+
+            var postEntity = _unitOfWork.Posts.GetById(post.Id);
+
+            if (postEntity == null)
+                throw new FileNotFoundException("The post is not valid");
+
+            if (postEntity.CreatorId != post.CreatorId)
+                throw new InvalidOperationException("You are not cretor of the post.");
+
+            var topic = _unitOfWork.Topics.GetById(post.TopicId);
+
+            if (topic == null)
+                throw new InvalidOperationException("No post can be edited without proper topic id");
+
+            if (postEntity.TopicId != topic.Id)
+                throw new InvalidOperationException("Topic not matched");
+
+
+            postEntity.Description = post.Description;
+            _unitOfWork.Save();
+        }
     }
 }

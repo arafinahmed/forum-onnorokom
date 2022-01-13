@@ -1,4 +1,8 @@
-﻿@model Onnorokom.Forum.Web.Models.Home.LoadAllPostsModel
+﻿@using Microsoft.AspNetCore.Identity
+@using Onnorokom.Forum.Membership.Entities
+@model Onnorokom.Forum.Web.Models.Home.LoadAllPostsModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = Model.TopicName;
 }
@@ -13,24 +17,29 @@
             <br/>
             <div class="page-content">
                 @{
+                    var userId = UserManager.GetUserId(User);
                     foreach(var post in Model.Posts)
                     {
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">@post.CreatorEmail</h5>
-                                <p class="card-text">@post.Description</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <a href="#"><p class="card-text">@post.Description</p></a>
+                                <p class="card-text">
+                                    <small class="">
+                                        <a href="#" class="card-link">Comment</a>
+                                        @{
+                                            if(userId == post.CreatorId.ToString())
+                                            {
+                                                <a href="/Post/Edit/@post.Id" class="card-link">Edit</a>
+                                                <a href="/Topic/DeleteTopic/@post.Id" class="card-link">Delete</a>
+                                            }
+                                        }
+                                    </small>
+                                </p>
                             </div>
                         </div>
                     }
                 }
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
             </div>            
         </div>
     </div>

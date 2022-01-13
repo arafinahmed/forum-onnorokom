@@ -11,18 +11,19 @@ namespace Onnorokom.Forum.Web
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<RegisterModel>().AsSelf();
-            builder.RegisterType<ConfirmEmailModel>().AsSelf();
-            builder.RegisterType<CreateBoardModel>().AsSelf();
-            builder.RegisterType<BoardListModel>().AsSelf();
-            builder.RegisterType<EditBoardModel>().AsSelf();
-            builder.RegisterType<DeleteBoardModel>().AsSelf();
-            builder.RegisterType<LoadAllTopicsModel>().AsSelf();
-            builder.RegisterType<CreateTopicModel>().AsSelf();
-            builder.RegisterType<EditTopicModel>().AsSelf();
-            builder.RegisterType<DeleteTopicModel>().AsSelf();
-            builder.RegisterType<CreatePostModel>().AsSelf();
-            builder.RegisterType<LoadAllPostsModel>().AsSelf();
+            builder.RegisterType<RegisterModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<ConfirmEmailModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<CreateBoardModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<BoardListModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<EditBoardModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<DeleteBoardModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<LoadAllTopicsModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<CreateTopicModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<EditTopicModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<DeleteTopicModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<CreatePostModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<LoadAllPostsModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<EditPostModel>().AsSelf().InstancePerLifetimeScope();
 
             base.Load(builder);
         }
