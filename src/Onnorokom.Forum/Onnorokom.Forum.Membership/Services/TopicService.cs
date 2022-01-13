@@ -31,6 +31,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the user id");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a topic");
 
@@ -40,7 +41,9 @@ namespace Onnorokom.Forum.Membership.Services
             {
                 throw new InvalidOperationException("You are not permited to create a Board");
             }
+            
             var board = _unitOfWork.Boards.GetById(topic.BoardId);
+            
             if (board == null)
                 throw new InvalidOperationException("No topic can be created without proper boardId");
 
@@ -59,6 +62,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new ArgumentNullException("board id can not be empty.");
 
             var board = _unitOfWork.Boards.GetById(boardId);
+            
             if (board == null)
                 return null;
 
@@ -69,6 +73,7 @@ namespace Onnorokom.Forum.Membership.Services
             {
                 topics.Add(new Topic { TopicName = topicEntity.TopicName, Id = topicEntity.Id, BoardId = topicEntity.BoardId, CreatorId = topicEntity.CreatorId });
             }
+            
             return topics;
         }
 
@@ -78,6 +83,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new ArgumentNullException("id can not be empty.");
 
             var topicEntity = _unitOfWork.Topics.GetById(id);
+            
             if (topicEntity == null)
                 return null;
 
@@ -95,6 +101,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the creator id");
 
             var claims = await _profileService.GetClaimAsync(user);
+            
             if (claims == null)
                 throw new NullReferenceException("Claim is required for updating a topic");
 
@@ -141,6 +148,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the creator id");
 
             var claims = await _profileService.GetClaimAsync(user);
+            
             if (claims == null)
                 throw new NullReferenceException("Claim is required for deleting a topic");
 

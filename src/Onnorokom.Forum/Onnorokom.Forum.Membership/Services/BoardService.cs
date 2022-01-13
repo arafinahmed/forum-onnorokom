@@ -34,6 +34,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the modId");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a board");
 
@@ -43,6 +44,7 @@ namespace Onnorokom.Forum.Membership.Services
             {
                 throw new InvalidOperationException("You are not permited to create a Board");
             }
+
             var boards = _unitOfWork.Boards.Get(x => x.BoardName == board.BoardName, "");
 
             if (boards.Count > 0)
@@ -56,10 +58,12 @@ namespace Onnorokom.Forum.Membership.Services
         {
             var boardEntities = _unitOfWork.Boards.GetAll();
             var boards = new List<Board>();
+
             foreach (var boardEntity in boardEntities)
             {
                 boards.Add(new Board { BoardName = boardEntity.BoardName, Id = boardEntity.Id });
             }
+
             return boards;
         }
 
@@ -69,6 +73,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new ArgumentNullException("id can not be empty.");
 
             var boardEntity = _unitOfWork.Boards.GetById(id);
+
             if (boardEntity == null)
                 return null;
             
@@ -89,6 +94,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the modId");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a board");
 
@@ -100,6 +106,7 @@ namespace Onnorokom.Forum.Membership.Services
             }
 
             var boardEntity = _unitOfWork.Boards.GetById(board.Id);
+
             if (boardEntity == null)
                 throw new FileNotFoundException("The board is not valid");
             
@@ -126,6 +133,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the modId");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a board");
 
@@ -137,6 +145,7 @@ namespace Onnorokom.Forum.Membership.Services
             }
 
             var boardEntity = _unitOfWork.Boards.GetById(board.Id);
+
             if (boardEntity == null)
                 throw new FileNotFoundException("The board is not valid");
 

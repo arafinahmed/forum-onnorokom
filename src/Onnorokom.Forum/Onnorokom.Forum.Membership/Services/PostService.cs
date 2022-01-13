@@ -34,6 +34,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new InvalidOperationException("Post email not match with user email");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for creating a topic");
 
@@ -43,10 +44,11 @@ namespace Onnorokom.Forum.Membership.Services
             {
                 throw new InvalidOperationException("You are not permited to create a Board");
             }
+            
             var topic = _unitOfWork.Topics.GetById(post.TopicId);
+
             if (topic == null)
                 throw new InvalidOperationException("No post can be created without proper topic");
-
 
             await _unitOfWork.Posts.AddAsync(new EO.Post 
                 {
@@ -65,6 +67,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new ArgumentNullException("Topic id can not be empty.");
 
             var topic = _unitOfWork.Topics.GetById(topicId);
+
             if (topic == null)
                 return null;
 
@@ -82,6 +85,7 @@ namespace Onnorokom.Forum.Membership.Services
                     TopicId = postEntity.TopicId
                 });
             }
+
             return posts;
         }
 
@@ -91,6 +95,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new ArgumentNullException("id can not be empty.");
 
             var postEntity = _unitOfWork.Posts.GetById(id);
+
             if (postEntity == null)
                 return null;
 
@@ -115,6 +120,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the creator id");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for updating a post");
 
@@ -157,6 +163,7 @@ namespace Onnorokom.Forum.Membership.Services
                 throw new FileNotFoundException("User not found with the creator id");
 
             var claims = await _profileService.GetClaimAsync(user);
+
             if (claims == null)
                 throw new NullReferenceException("Claim is required for deleting a post");
 

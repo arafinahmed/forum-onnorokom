@@ -15,6 +15,7 @@ namespace Onnorokom.Forum.Membership.Seeds
         private UserManager<ApplicationUser> _userManager;
 
         public ModeratorDataSeed() { }
+
         public ModeratorDataSeed(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -24,6 +25,7 @@ namespace Onnorokom.Forum.Membership.Seeds
         {
             _userManager = scope.Resolve<UserManager<ApplicationUser>>();
         }
+
         public async Task SeedUserAsync()
         {
             var modUser = new ApplicationUser

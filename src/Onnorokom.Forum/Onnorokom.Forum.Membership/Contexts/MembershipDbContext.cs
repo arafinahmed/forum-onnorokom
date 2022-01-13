@@ -18,6 +18,7 @@ namespace Onnorokom.Forum.Membership.Contexts
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             if (!dbContextOptionsBuilder.IsConfigured)
@@ -29,6 +30,7 @@ namespace Onnorokom.Forum.Membership.Contexts
 
             base.OnConfiguring(dbContextOptionsBuilder);
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApplicationUser>()
