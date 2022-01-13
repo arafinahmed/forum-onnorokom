@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Onnorokom.Forum.Membership.Services;
+using BO = Onnorokom.Forum.Membership.BusinessObject;
 
 namespace Onnorokom.Forum.Web.Models.Home
 {
@@ -7,6 +8,7 @@ namespace Onnorokom.Forum.Web.Models.Home
     {
         public Guid Id { get; set; }
         public string BoardName { get; set; }
+        public IList<BO.Topic> Topics { get; set;}
         private ILifetimeScope _scope;
         private IBoardService _boardService;
         private ITopicService _topicService;
@@ -36,6 +38,8 @@ namespace Onnorokom.Forum.Web.Models.Home
             }
             Id = board.Id;
             BoardName = board.BoardName;
+
+            Topics = _topicService.GetAllTopics(boardId);
         }
     }
 }

@@ -28,13 +28,13 @@ namespace Onnorokom.Forum.Membership.Seeds
         {
             var modUser = new ApplicationUser
             {
-                UserName = "mod@email.com",
-                Email = "mod@email.com",
+                UserName = "moderator@email.com",
+                Email = "moderator@email.com",
                 EmailConfirmed = true
             };
 
             IdentityResult result = null;
-            var password = "Mod@Password";
+            var password = "moderator@email.com";
 
             if (await _userManager.FindByEmailAsync(modUser.Email) == null)
             {

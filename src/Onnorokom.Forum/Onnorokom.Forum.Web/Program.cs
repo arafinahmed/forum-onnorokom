@@ -15,6 +15,7 @@ using System.Configuration;
 using DevSkill.Http.Emails;
 using Onnorokom.Forum.Membership.BusinessObject;
 using Microsoft.AspNetCore.Authorization;
+using Onnorokom.Forum.Membership.Seeds;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ForumDbConnection");
 var migrationAssemblyName = typeof(Program).Assembly.FullName;
 
-
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
 
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
@@ -129,7 +130,7 @@ builder.Services.AddSingleton<IAuthorizationHandler, ModeratorRequirementHandler
 builder.Services.AddSingleton<IAuthorizationHandler, UserRequirementHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, CommonPermissionRequirementHandler>();
 builder.Services.AddRazorPages();
-
+builder.Services.AddSingleton<ModeratorDataSeed>();
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<SmtpConfiguration>(builder.Configuration.GetSection("Smtp"));
 
@@ -137,6 +138,10 @@ try
 {
     var app = builder.Build();
 
+    app.Services.GetAutofacRoot();
+    var dataSeed = new ModeratorDataSeed();
+    dataSeed.Resolve(app.Services.GetAutofacRoot());
+    await dataSeed.SeedUserAsync();
     Log.Information("Application Starting up");
 
     // Configure the HTTP request pipeline.

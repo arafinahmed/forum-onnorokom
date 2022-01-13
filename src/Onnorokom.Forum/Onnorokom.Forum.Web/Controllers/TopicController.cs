@@ -42,7 +42,7 @@ namespace Onnorokom.Forum.Web.Controllers
                 {
                     model.Resolve(_scope);
                     await model.CreateTopic(_userManager.GetUserName(User));
-                    return RedirectToAction("Topics", "Home", model.BoardId);
+                    return RedirectToAction("Topics", "Home", new {id = model.BoardId });
                 }
                 catch (Exception ex)
                 {

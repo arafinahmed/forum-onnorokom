@@ -49,5 +49,21 @@ namespace Onnorokom.Forum.Membership.Services
             await _unitOfWork.Topics.AddAsync(new EO.Topic { TopicName = topic.TopicName, BoardId = topic.BoardId});
             _unitOfWork.Save();
         }
+
+        public IList<Topic> GetAllTopics(Guid boardId)
+        {
+            var board = _unitOfWork.Boards.GetById(boardId);
+            if (board == null)
+                return null;
+
+            var topics = new List<Topic>();
+            var topicsEntity = _unitOfWork.Topics.Get( x => x.BoardId == boardId, "");
+            
+            foreach (var topicEntity in topicsEntity)
+            {
+                topics.Add(new Topic { TopicName = topicEntity.TopicName, Id = topicEntity.Id, BoardId = topicEntity.BoardId });
+            }
+            return topics;
+        }
     }
 }

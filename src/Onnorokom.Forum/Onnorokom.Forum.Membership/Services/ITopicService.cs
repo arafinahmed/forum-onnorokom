@@ -10,5 +10,6 @@ namespace Onnorokom.Forum.Membership.Services
     public interface ITopicService
     {
         Task CreateTopic(Topic topic, Guid userId);
+        IList<Topic> GetAllTopics(Guid boardId);
     }
 }

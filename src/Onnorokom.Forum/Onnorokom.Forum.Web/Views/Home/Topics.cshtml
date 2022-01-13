@@ -1,13 +1,32 @@
 ﻿@model Onnorokom.Forum.Web.Models.Home.LoadAllTopicsModel
 
+@{
+    ViewData["Title"] = Model.BoardName;
+}
+
 <div class="container">
     <h2>@Model.BoardName</h2>
     <hr />
-    <div class="card col-md-3 m-2">
-        <a href="/Topic/CreateTopic/@Model.Id">
-            <div class="card-body">
-                <h5 class="card-title">+ Add New Topic</h5>
-            </div>
-        </a>
+    <div class="row">
+        @{
+            foreach(var topic in Model.Topics)
+            {
+                <div class="card col-md-3 m-2">
+                    <a href="#">
+                        <div class="card-body">
+                            <h5 class="card-title">@topic.TopicName</h5>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        <div class="card col-md-3 m-2">
+            <a href="/Topic/CreateTopic/@Model.Id">
+                <div class="card-body">
+                    <h5 class="card-title">+ Add New Topic</h5>
+                </div>
+            </a>
+        </div>
     </div>
+
 </div>
