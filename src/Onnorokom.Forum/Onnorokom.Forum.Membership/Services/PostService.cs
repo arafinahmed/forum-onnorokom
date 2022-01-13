@@ -30,7 +30,7 @@ namespace Onnorokom.Forum.Membership.Services
             if (user == null)
                 throw new FileNotFoundException("User not found with the user id");
 
-            if (user.Email == post.CreatorEmail)
+            if (user.Email != post.CreatorEmail)
                 throw new InvalidOperationException("Post email not match with user email");
 
             var claims = await _profileService.GetClaimAsync(user);

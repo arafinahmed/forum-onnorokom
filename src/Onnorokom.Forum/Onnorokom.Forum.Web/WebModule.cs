@@ -2,6 +2,7 @@
 using Onnorokom.Forum.Web.Models.Account;
 using Onnorokom.Forum.Web.Models.Home;
 using Onnorokom.Forum.Web.Models.Moderator;
+using Onnorokom.Forum.Web.Models.Post;
 using Onnorokom.Forum.Web.Models.Topic;
 
 namespace Onnorokom.Forum.Web
@@ -20,7 +21,8 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<CreateTopicModel>().AsSelf();
             builder.RegisterType<EditTopicModel>().AsSelf();
             builder.RegisterType<DeleteTopicModel>().AsSelf();
-
+            builder.RegisterType<CreatePostModel>().AsSelf();
+            
             base.Load(builder);
         }
     }
