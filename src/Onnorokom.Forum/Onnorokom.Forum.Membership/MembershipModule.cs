@@ -47,6 +47,7 @@ namespace Onnorokom.Forum.Membership
             builder.RegisterType<TopicService>().As<ITopicService>().InstancePerLifetimeScope();
             builder.RegisterType<PostRepository>().As<IPostRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PostService>().As<IPostService>().InstancePerLifetimeScope();
+            builder.RegisterType<CommentRepository>().As<ICommentRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

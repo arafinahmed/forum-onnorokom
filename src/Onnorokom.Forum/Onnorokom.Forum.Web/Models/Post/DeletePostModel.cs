@@ -80,6 +80,8 @@ namespace Onnorokom.Forum.Web.Models.Post
 
         public async Task Delete(Guid userId)
         {
+            ArgumentNullException.ThrowIfNull(userId, "User id not provided.");
+
             var user = await _profileService.GetUserAsync(userId);
 
             if (user == null)

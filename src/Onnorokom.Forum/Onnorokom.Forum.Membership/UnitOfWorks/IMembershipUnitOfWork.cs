@@ -13,5 +13,6 @@ namespace Onnorokom.Forum.Membership.UnitOfWorks
         IBoardRepository Boards { get; }
         ITopicRepository Topics { get; }
         IPostRepository Posts { get; }
+        ICommentRepository Comments { get; }
     }
 }

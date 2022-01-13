@@ -31,11 +31,17 @@ namespace Onnorokom.Forum.Membership.Contexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApplicationUser>()
+                .ToTable("AspNetUsers", t => t.ExcludeFromMigrations())
+                .HasMany<Comment>()
+                .WithOne(g => g.ApplicationUser);
+
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Board> Boards { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
