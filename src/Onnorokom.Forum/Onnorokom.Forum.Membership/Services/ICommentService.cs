@@ -6,5 +6,7 @@ namespace Onnorokom.Forum.Membership.Services
     {
         Task CreateComment(Comment comment);
         IList<Comment> GetComments(Guid postId);
+        Comment GetComment(Guid commentId);
+        Task Update(Comment comment);
     }
 }

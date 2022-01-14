@@ -44,5 +44,46 @@ namespace Onnorokom.Forum.Web.Controllers
                 return RedirectToAction("Comments", "Home", new { id = model.PostId });
             }
         }
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var model = _scope.Resolve<EditCommentModel>();
+            var userId = Guid.Parse(_userManager.GetUserId(User));
+            try
+            {
+                await model.Load(id, userId);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.LogError(ex, "Not permitted.");
+                return View(model);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditCommentModel model)
+        {
+            model.CreatorEmail = _userManager.GetUserName(User);
+            model.CreatorId = Guid.Parse(_userManager.GetUserId(User));
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.Resolve(_scope);
+                    await model.Edit(Guid.Parse(_userManager.GetUserId(User)));
+                    return RedirectToAction("Comments", "Home", new { id = model.PostId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    _logger.LogError(ex, "Post update Failed");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
     }
 }
