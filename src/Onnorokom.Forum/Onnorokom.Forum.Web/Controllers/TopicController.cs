@@ -10,19 +10,16 @@ namespace Onnorokom.Forum.Web.Controllers
     [Authorize(Policy = "CommonPermission")]
     public class TopicController : Controller
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<TopicController> _logger;
         private readonly ILifetimeScope _scope;
 
         public TopicController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             ILifetimeScope scope,
             ILogger<TopicController> logger)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _logger = logger;
             _scope = scope;
         }

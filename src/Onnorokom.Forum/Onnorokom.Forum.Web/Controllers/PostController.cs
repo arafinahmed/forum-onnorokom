@@ -10,19 +10,16 @@ namespace Onnorokom.Forum.Web.Controllers
     [Authorize(Policy = "CommonPermission")]
     public class PostController : Controller
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<PostController> _logger;
         private readonly ILifetimeScope _scope;
 
         public PostController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             ILifetimeScope scope,
             ILogger<PostController> logger)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _logger = logger;
             _scope = scope;
         }
