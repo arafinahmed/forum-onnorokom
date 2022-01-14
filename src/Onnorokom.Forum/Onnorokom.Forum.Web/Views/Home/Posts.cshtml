@@ -28,7 +28,7 @@
                                 <a href="#"><p class="card-text">@post.Description</p></a>
                                 <p class="card-text">
                                     <small class="">
-                                        <a href="#" class="card-link">Comment</a>
+                                        <a href="/Home/Comments/@post.Id" class="card-link">Comment</a>
                                         @{
                                             if(userId == post.CreatorId.ToString())
                                             {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Onnorokom.Forum.Membership.BusinessObject;
 
 namespace Onnorokom.Forum.Membership.Services
 {
     public interface ICommentService
     {
+        Task CreateComment(Comment comment);
     }
 }

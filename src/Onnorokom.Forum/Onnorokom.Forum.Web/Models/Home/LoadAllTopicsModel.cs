@@ -31,6 +31,7 @@ namespace Onnorokom.Forum.Web.Models.Home
         public void LoadTopics(Guid boardId)
         {
             var board = _boardService.GetBoard(boardId);
+            Topics = new List<BO.Topic>();
 
             if (board == null)
             {

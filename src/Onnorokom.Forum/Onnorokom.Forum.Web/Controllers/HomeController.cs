@@ -49,5 +49,12 @@ namespace Onnorokom.Forum.Web.Controllers
             model.Load(id);
             return View(model);
         }
+
+        public IActionResult Comments(Guid id)
+        {
+            var model = _scope.Resolve<LoadAllCommentsModel>();
+            model.Load(id);
+            return View(model);
+        }
     }
 }

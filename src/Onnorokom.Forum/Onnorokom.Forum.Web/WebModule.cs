@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Onnorokom.Forum.Web.Models.Account;
+using Onnorokom.Forum.Web.Models.Comment;
 using Onnorokom.Forum.Web.Models.Home;
 using Onnorokom.Forum.Web.Models.Moderator;
 using Onnorokom.Forum.Web.Models.Post;
@@ -25,6 +26,8 @@ namespace Onnorokom.Forum.Web
             builder.RegisterType<LoadAllPostsModel>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<EditPostModel>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<DeletePostModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<LoadAllCommentsModel>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<CreateCommentModel>().AsSelf().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

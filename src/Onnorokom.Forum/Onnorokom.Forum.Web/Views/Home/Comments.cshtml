@@ -1,0 +1,136 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Onnorokom.Forum.Membership.Entities
+@model Onnorokom.Forum.Web.Models.Home.LoadAllCommentsModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Comments";
+}
+
+<div class="container">
+    <div class="container">
+        <div class="container">
+            <br/>
+            <div class="d-flex justify-content-between">
+                <h3 class="col-md-6">@Model.BoardName / @Model.TopicName</h3>
+                <a type="button" class="btn btn-primary" href="/Post/Create/@Model.TopicId">Write Post</a>
+            </div>
+            <br/>
+            <div class="page-content">
+                <div>
+                    <p class="fw-bold">@Model.CreatorEmail</p>
+                    <p class="fst-normal">@Model.Description</p>
+                    <p class="card-text">
+                        <small class="">
+                            @{
+                                if(UserManager.GetUserName(User) == Model.CreatorEmail)
+                                {
+                                    <a href="/Post/Edit/@Model.PostId" class="card-link">Edit</a>
+                                    <a href="/Post/Delete/@Model.PostId" class="card-link">Delete</a>
+                                }
+                            }
+                        </small>
+                    </p>
+                </div>
+                @{
+                    if(UserManager.GetUserName(User) != null)
+                    {
+                        <section class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form form-vertical needs-validation" novalidate  method="post"
+                                            asp-controller="Comment" asp-action="Create" asp-antiforgery="true">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <input asp-for="TopicId" type="hidden"/>
+                                                <input asp-for="BoardName" type="hidden"/>
+                                                <input asp-for="TopicName" type="hidden"/>
+                                                <input asp-for="PostId" type="hidden"/>
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <div class="position-relative">
+                                                                    <label for="exampleFormControlTextarea1">Comment</label>
+                                                                    <textarea class="form-control" asp-for="CommentText" id="exampleFormControlTextarea1" rows="3" required placeholder="Write here.."></textarea>
+                                                                    <div class="invalid-tooltip">
+                                                                        Write your comment..
+                                                                    </div>
+                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <span class="text-danger" asp-validation-for="CommentText"></span>
+                                                        </div>
+                                                        <div class="col-12 d-flex justify-content-end">
+                                                            <button type="submit"
+                                                                class="btn btn-primary me-1 mb-1">
+                                                                Comment
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                    else
+                    {
+                        <p class="fw-bold">Login to write a comment.</p>
+                    }
+                }
+                @{
+                    var userId = UserManager.GetUserId(User);
+                    foreach(var post in Model.Comments)
+                    {
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@post.CreatorEmail</h5>
+                                <a href="#"><p class="card-text">@post.CommentText</p></a>
+                                <p class="card-text">
+                                    <small class="">
+                                        @{
+                                            if(userId == post.CreatorId.ToString())
+                                            {
+                                                <a href="/Post/Edit/@post.Id" class="card-link">Edit</a>
+                                                <a href="/Post/Delete/@post.Id" class="card-link">Delete</a>
+                                            }
+                                        }
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>            
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        (function () {
+            'use strict'
+
+            var forms = document.querySelectorAll('.needs-validation')
+
+            Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}
