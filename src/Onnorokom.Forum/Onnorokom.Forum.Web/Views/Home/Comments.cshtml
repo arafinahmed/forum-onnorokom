@@ -82,7 +82,7 @@
                     }
                     else
                     {
-                        <p class="fw-bold">Login to write a comment.</p>
+                        <a href="/Account/Login"><p class="fw-bold">Login to write a comment.</p></a>
                     }
                 }
                 @{
@@ -92,7 +92,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">@comment.CreatorEmail</h5>
-                                <a href="#"><p class="card-text">@comment.CommentText</p></a>
+                                <p class="card-text">@comment.CommentText</p>
                                 <p class="card-text">
                                     <small class="">
                                         @{

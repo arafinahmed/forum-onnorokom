@@ -9,5 +9,6 @@ namespace Onnorokom.Forum.Membership.Services
         Post GetPost(Guid id);
         Task UpdatePostDescription(Post post);
         Task DeletePost(Post post);
+        Task<IList<Post>> GetPostByUserId(Guid userId);
     }
 }

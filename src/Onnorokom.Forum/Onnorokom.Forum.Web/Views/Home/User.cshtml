@@ -1,21 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Onnorokom.Forum.Membership.Entities
-@model Onnorokom.Forum.Web.Models.Home.LoadAllPostsModel
+@model Onnorokom.Forum.Web.Models.Home.LoadUserPosts
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = Model.TopicName;
+    ViewData["Title"] = "Posts";
 }
 
 <div class="container">
     <div class="container">
         <div class="container">
-            <br/>
-            <div class="d-flex justify-content-between">
-                <h3 class="col-md-6">@Model.BoardName / @Model.TopicName</h3>
-                <a type="button" class="btn btn-primary" href="/Post/Create/@Model.TopicId">Write Post</a>
-            </div>
             <br/>
             <div class="page-content">
                 @{
@@ -24,7 +19,7 @@
                     {
                         <div class="card">
                             <div class="card-body">
-                                <a href="/Home/User/@post.CreatorId"><h5 class="card-title">@post.CreatorEmail</h5></a>
+                                <h5 class="card-title">@post.CreatorEmail</h5>
                                 <p class="card-text">@post.Description</p>
                                 <p class="card-text">
                                     <small class="">
@@ -40,6 +35,12 @@
                                 </p>
                             </div>
                         </div>
+                    }
+                }
+                @{
+                    if(Model.Posts.Count == 0)
+                    {
+                        <p>The user have no post to show.</p>
                     }
                 }
             </div>            

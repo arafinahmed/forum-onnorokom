@@ -56,5 +56,20 @@ namespace Onnorokom.Forum.Web.Controllers
             model.Load(id);
             return View(model);
         }
+
+        public async Task<IActionResult> User(Guid id)
+        {
+            var model = _scope.Resolve<LoadUserPosts>();
+            try
+            {
+                await model.Load(id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "No user for showing post.");
+                return View(model);
+            }
+        }
     }
 }
