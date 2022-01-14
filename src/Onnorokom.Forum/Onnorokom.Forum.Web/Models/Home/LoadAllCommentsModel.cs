@@ -74,6 +74,7 @@ namespace Onnorokom.Forum.Web.Models.Home
             PostId = post.Id;
             Description = post.Description;
             CreatorEmail = post.CreatorEmail;
+            Comments = _commentService.GetComments(PostId);
         }
     }
 }

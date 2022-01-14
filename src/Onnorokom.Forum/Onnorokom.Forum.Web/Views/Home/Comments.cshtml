@@ -87,19 +87,19 @@
                 }
                 @{
                     var userId = UserManager.GetUserId(User);
-                    foreach(var post in Model.Comments)
+                    foreach(var comment in Model.Comments)
                     {
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">@post.CreatorEmail</h5>
-                                <a href="#"><p class="card-text">@post.CommentText</p></a>
+                                <h5 class="card-title">@comment.CreatorEmail</h5>
+                                <a href="#"><p class="card-text">@comment.CommentText</p></a>
                                 <p class="card-text">
                                     <small class="">
                                         @{
-                                            if(userId == post.CreatorId.ToString())
+                                            if(userId == comment.CreatorId.ToString())
                                             {
-                                                <a href="/Post/Edit/@post.Id" class="card-link">Edit</a>
-                                                <a href="/Post/Delete/@post.Id" class="card-link">Delete</a>
+                                                <a href="/Post/Edit/@comment.Id" class="card-link">Edit</a>
+                                                <a href="/Post/Delete/@comment.Id" class="card-link">Delete</a>
                                             }
                                         }
                                     </small>

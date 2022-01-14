@@ -60,5 +60,33 @@ namespace Onnorokom.Forum.Membership.Services
             });
             _unitOfWork.Save();
         }
+
+        public IList<Comment> GetComments(Guid postId)
+        {
+            if (postId == Guid.Empty)
+                throw new ArgumentNullException("Post id can not be empty.");
+
+            var post = _unitOfWork.Posts.GetById(postId);
+
+            if (post == null)
+                return null;
+
+            var comments = new List<Comment>();
+            var commentEntities = _unitOfWork.Comments.Get(x => x.PostId == postId, "");
+
+            foreach (var comment in commentEntities)
+            {
+                comments.Insert(0, new Comment
+                {
+                    CommentText = comment.CommentText,
+                    CreatorEmail = comment.CreatorEmail,
+                    CreatorId = comment.CreatorId,
+                    Id = comment.Id,
+                    PostId = comment.PostId
+                });
+            }
+
+            return comments;
+        }
     }
 }
