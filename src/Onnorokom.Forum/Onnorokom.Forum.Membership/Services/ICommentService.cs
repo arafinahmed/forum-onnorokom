@@ -8,5 +8,6 @@ namespace Onnorokom.Forum.Membership.Services
         IList<Comment> GetComments(Guid postId);
         Comment GetComment(Guid commentId);
         Task Update(Comment comment);
+        Task Delete(Comment comment);
     }
 }

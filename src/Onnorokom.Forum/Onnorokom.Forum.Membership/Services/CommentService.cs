@@ -151,5 +151,48 @@ namespace Onnorokom.Forum.Membership.Services
             commentEntity.CommentText= comment.CommentText;
             _unitOfWork.Save();
         }
+
+        public async Task Delete(Comment comment)
+        {
+            if (comment == null)
+                throw new ArgumentNullException("No comment provided");
+
+            var user = await _profileService.GetUserByIdAsync(comment.CreatorId);
+
+            if (user == null)
+                throw new FileNotFoundException("User not found with the creator id");
+
+            var claims = await _profileService.GetClaimAsync(user);
+
+            if (claims == null)
+                throw new NullReferenceException("Claim is required for deleting a comment.");
+
+            var claim = claims.FirstOrDefault();
+
+            if (claim.Type != "Moderator" && claim.Type != "User")
+            {
+                throw new InvalidOperationException("You are not permited to delete a comment.");
+            }
+
+            var commentEntity = _unitOfWork.Comments.GetById(comment.Id);
+
+            if (commentEntity == null)
+                throw new FileNotFoundException("The comment is not valid");
+
+            if (commentEntity.CreatorId != comment.CreatorId)
+                throw new InvalidOperationException("You are not cretor of the comment.");
+
+            var post = _unitOfWork.Posts.GetById(comment.PostId);
+
+            if (post == null)
+                throw new InvalidOperationException("No comment can be deleted without proper post id");
+
+            if (commentEntity.PostId != post.Id)
+                throw new InvalidOperationException("Post not matched");
+
+
+            _unitOfWork.Comments.Remove(commentEntity);
+            _unitOfWork.Save();
+        }
     }
 }
