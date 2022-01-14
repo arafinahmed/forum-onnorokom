@@ -194,5 +194,33 @@ namespace Onnorokom.Forum.Membership.Services
             _unitOfWork.Posts.Remove(postEntity);
             _unitOfWork.Save();
         }
+
+        public async Task<IList<Post>> GetPostByUserId(Guid userId)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentNullException("User id can not be empty.");
+
+            var user = await _profileService.GetUserAsync(userId);
+
+            if (user == null)
+                return null;
+
+            var posts = new List<Post>();
+            var postsEntity = _unitOfWork.Posts.Get(x => x.CreatorId == userId, "");
+
+            foreach (var postEntity in postsEntity)
+            {
+                posts.Insert(0, new Post
+                {
+                    Description = postEntity.Description,
+                    CreatorEmail = postEntity.CreatorEmail,
+                    CreatorId = postEntity.CreatorId,
+                    Id = postEntity.Id,
+                    TopicId = postEntity.TopicId
+                });
+            }
+
+            return posts;
+        }
     }
 }

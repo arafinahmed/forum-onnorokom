@@ -10,19 +10,16 @@ namespace Onnorokom.Forum.Web.Controllers
     [Authorize(Policy = "Moderator")]
     public class ModeratorController : Controller
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ModeratorController> _logger;
         private readonly ILifetimeScope _scope;
 
         public ModeratorController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             ILifetimeScope scope,
             ILogger<ModeratorController> logger)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _logger = logger;
             _scope = scope;
         }

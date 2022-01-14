@@ -34,6 +34,7 @@ namespace Onnorokom.Forum.Web.Models.Home
 
         public void Load(Guid id)
         {
+            Posts = new List<BO.Post>();
             var topic = _topicService.GetTopic(id);
             if (topic == null)
             {

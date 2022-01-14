@@ -11,27 +11,21 @@ namespace Onnorokom.Forum.Web.Models.Comment
         public string CreatorEmail { get; set; }
         public Guid CreatorId { get; set; }
         private IPostService _postService;
-        private ITopicService _topicService;
-        private IBoardService _boardService;
         private ICommentService _commentService;
         private IProfileService _profileService;
 
         public CreateCommentModel() { }
 
-        public CreateCommentModel(IPostService postService, ITopicService topicService,
-            IBoardService boardService, ICommentService commentService, IProfileService profileService)
+        public CreateCommentModel(IPostService postService,
+            ICommentService commentService, IProfileService profileService)
         {
             _postService = postService;
-            _topicService = topicService;
-            _boardService = boardService;
             _commentService = commentService;
             _profileService = profileService;
         }
 
         public void Resolve(ILifetimeScope scope)
         {
-            _boardService = scope.Resolve<IBoardService>();
-            _topicService = scope.Resolve<ITopicService>();
             _postService = scope.Resolve<IPostService>();
             _commentService = scope.Resolve<ICommentService>();
             _profileService = scope.Resolve<IProfileService>();

@@ -22,7 +22,7 @@
             }
         }
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">@User.Identity.Name</a>
+            <a class="nav-link text-dark" href="/Home/User/@UserManager.GetUserId(User)">@User.Identity.Name</a>
          </li>
          <li class="nav-item">
             <form class="nav-menu form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
