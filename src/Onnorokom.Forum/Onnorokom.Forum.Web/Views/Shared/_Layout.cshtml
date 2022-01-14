@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Onnorokom.Forum.Web</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Onnorokom.Forum.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/mazar/css/bootstrap.css">
+    <link rel="stylesheet" href="~/mazar/vendors/choices.js/choices.min.css" />
+    <link rel="stylesheet" href="~/mazar/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="~/mazar/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/mazar/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/mazar/vendors/datatables/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/mazar/css/app.css">
+    <link rel="stylesheet" href="~/mazar/vendors/simple-datatables/style.css">
+    <link rel="shortcut icon" href="~/mazar/images/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <partial name="Partial/_LoginPartial"/>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Onnorokom.Forum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/mazar/js/bootstrap.bundle.min.js"></script>
+    <script src="~/mazar/vendors/jquery/jquery.min.js"></script>
+    <script src="~/mazar/vendors/jquery/jquery.validate.min.js"></script>
+    <script src="~/mazar/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/mazar/js/pages/dashboard.js"></script>
+    <script src="~/mazar/vendors/choices.js/choices.min.js"></script>
+    <script src="~/mazar/js/main.js"></script>
+    <script src="~/mazar/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/mazar/vendors/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/mazar/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/mazar/js/pages/dashboard.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

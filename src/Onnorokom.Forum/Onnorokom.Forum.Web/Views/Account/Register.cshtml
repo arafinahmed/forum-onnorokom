@@ -1,0 +1,82 @@
+﻿@model RegisterModel
+@using Microsoft.Extensions.Options
+
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "Register Company";
+}
+
+<div class="col-lg-5 col-12">
+    <div id="auth-left">
+        <div>
+            <a asp-action="Index" asp-controller="Home" >Home</a>
+        </div>
+        <h1 class="auth-title">Sign Up</h1>
+        <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
+
+        <form asp-action="Register" asp-antiforgery="true" asp-controller="Account" method="post" class="needs-validation" novalidate>
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input asp-for="Email" type="email" class="form-control form-control-xl" placeholder="Email" required>
+                <div class="form-control-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input asp-for="Password" type="password" class="form-control form-control-xl" placeholder="Password" required>
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input asp-for="ConfirmPassword" type="password" class="form-control form-control-xl" placeholder="Confirm Password" required>
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            <div class="form-group" style="">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                        I Agree the terms & conditions
+                    </label>
+                    <div class="invalid-feedback">
+                        You must agree before submitting.
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" type="submit">Sign Up</button>
+        </form>
+        <div class="text-center mt-5 text-lg fs-4">
+            <p class='text-gray-600'>
+                Already have an account? <a asp-action="Login" asp-controller="Account" class="font-bold">Log in</a>.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-7 d-none d-lg-block">
+    <div id="auth-right">
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
+}

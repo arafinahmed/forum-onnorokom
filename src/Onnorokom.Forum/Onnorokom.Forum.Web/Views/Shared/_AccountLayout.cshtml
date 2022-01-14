@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onnorokom | @ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/mazar/css/bootstrap.css">
+    <link rel="stylesheet" href="~/mazar/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/mazar/css/app.css">
+    <link rel="stylesheet" href="~/mazar/css/pages/auth.css">
+    @await RenderSectionAsync("Styles", false)
+</head>
+<body>
+    <div id="auth">
+        <div class="row h-100">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
+    <script src="~/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/js/adminlte.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

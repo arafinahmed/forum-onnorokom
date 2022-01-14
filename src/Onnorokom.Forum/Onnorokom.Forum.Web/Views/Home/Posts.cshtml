@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Onnorokom.Forum.Membership.Entities
+@model Onnorokom.Forum.Web.Models.Home.LoadAllPostsModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = Model.TopicName;
+}
+
+<div class="container">
+    <div class="container">
+        <div class="container">
+            <br/>
+            <div class="d-flex justify-content-between">
+                <h3 class="col-md-6">@Model.BoardName / @Model.TopicName</h3>
+                <a type="button" class="btn btn-primary" href="/Post/Create/@Model.TopicId">Write Post</a>
+            </div>
+            <br/>
+            <div class="page-content">
+                @{
+                    var userId = UserManager.GetUserId(User);
+                    foreach(var post in Model.Posts)
+                    {
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@post.CreatorEmail</h5>
+                                <a href="#"><p class="card-text">@post.Description</p></a>
+                                <p class="card-text">
+                                    <small class="">
+                                        <a href="/Home/Comments/@post.Id" class="card-link">Comment</a>
+                                        @{
+                                            if(userId == post.CreatorId.ToString())
+                                            {
+                                                <a href="/Post/Edit/@post.Id" class="card-link">Edit</a>
+                                                <a href="/Post/Delete/@post.Id" class="card-link">Delete</a>
+                                            }
+                                        }
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>            
+        </div>
+    </div>
+</div>

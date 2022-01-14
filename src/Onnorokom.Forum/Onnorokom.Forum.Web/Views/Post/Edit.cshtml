@@ -1,0 +1,75 @@
+﻿@model Onnorokom.Forum.Web.Models.Post.EditPostModel
+
+@{
+    ViewData["Title"] = "Edit Post";
+}
+
+<div id="main">
+    <h3>@Model.BoardName / @Model.TopicName</h3>
+    <div class="page-content">
+        <section class="row">
+            <div class="col-md-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-vertical needs-validation" novalidate  method="post"
+                            asp-controller="Post" asp-action="Edit" asp-antiforgery="true">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input asp-for="TopicId" type="hidden"/>
+                                <input asp-for="BoardName" type="hidden"/>
+                                <input asp-for="TopicName" type="hidden"/>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="position-relative">
+                                                    <label for="exampleFormControlTextarea1">Edit you post.</label>
+                                                    <textarea class="form-control" asp-for="Description" id="exampleFormControlTextarea1" rows="3" required placeholder="Write here.."></textarea>
+                                                    <div class="invalid-tooltip">
+                                                        Enter your post first.
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="text-danger" asp-validation-for="Description"></span>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="submit"
+                                                class="btn btn-primary me-1 mb-1">
+                                                Edit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>            
+</div>
+
+@section Scripts{
+    <script>
+        (function () {
+            'use strict'
+
+            var forms = document.querySelectorAll('.needs-validation')
+
+            Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+}

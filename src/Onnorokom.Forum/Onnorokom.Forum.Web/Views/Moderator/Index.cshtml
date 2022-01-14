@@ -1,0 +1,24 @@
+﻿@model Onnorokom.Forum.Web.Models.Moderator.BoardListModel
+
+@{
+    ViewData["Title"] = "Boards";
+}
+
+<partial name="Partial/_SidebarPartial"/>
+<div class="container">
+
+    <div class="row">
+        @{
+            foreach(var board in Model.Boards)
+            {
+                <div class="card col-md-3 m-2">
+                    <div class="card-body">
+                        <h5 class="card-title">@board.BoardName</h5>
+                        <a href="/Moderator/EditBoard/@board.Id" class="card-link">Edit</a>
+                        <a href="/Moderator/DeleteBoard/@board.Id" class="card-link">Delete</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
